@@ -1,8 +1,8 @@
 /*
  * grunt-dev-prod-switch
- * https://github.com/sanusart/grunt-dev-prod-switch
+ * https://github.com/boriscougar/grunt-dev-prod-switch
  *
- * Copyright (c) 2013 Sasha Khamkov
+ * Copyright (c) 2014 Boris Aguilar
  * Licensed under the MIT license.
  */
 
@@ -29,21 +29,21 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    dev_prod_switch: {
-      default_options: {
+    devProdSwitch: {
+      development: {
         options: {
+            environment:'dev',
         },
         files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123'],
+            'tmp/developmentOptions': ['test/fixtures/devEnvironment'],
         },
       },
-      custom_options: {
+      production: {
         options: {
-          separator: ': ',
-          punctuation: ' !!!',
+            environment:'prod',
         },
         files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
+            'tmp/productionOptions': ['test/fixtures/prodEnvironment'],
         },
       },
     },
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'dev_prod_switch', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'devProdSwitch', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

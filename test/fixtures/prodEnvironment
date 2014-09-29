@@ -1,0 +1,14 @@
+<!-- env:prod -->
+this should be in prod
+<!-- env:prod:end -->
+<!-- env:prod -->
+this too is prod
+<!-- env:prod:end -->
+<!-- env:dev -->
+this shouldnt be in prod but
+in
+dev
+<!-- env:dev:end -->
+<!-- env:prod -->
+and of course this is prod
+<!-- env:prod:end -->

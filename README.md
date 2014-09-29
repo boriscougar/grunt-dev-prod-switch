@@ -19,22 +19,22 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-dev-prod-switch');
 ```
 
-## The "dev_prod_switch" task
+## The "devProdSwitch" task
 
 ### Overview
-In your project's Gruntfile, add a section named `dev_prod_switch` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `devProdSwitch` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
     
 ...
     
-    dev_prod_switch: {
+    devProdSwitch: {
         options: {
             environment: 'dev',
-            env_char: '#',
-            env_block_dev: 'env:dev',
-            env_block_prod: 'env:prod'
+            envChar: '#',
+            envBlockDev: 'env:dev',
+            envBlockProd: 'env:prod'
         },
         all: {
             files: {
@@ -56,15 +56,15 @@ grunt.initConfig({
     
 ...
     
-    dev_prod_switch: {
+    devProdSwitch: {
         options: {
             // Can be ran as `grunt --env=dev` or ``grunt --env=prod``
             environment: grunt.option('env') || 'dev', // 'prod' or 'dev'
-            env_char: '#',
-            env_block_dev: 'env:dev',
-            env_block_prod: 'env:prod'
+            envChar: '#',
+            envBlockDev: 'env:dev',
+            envBlockProd: 'env:prod'
         },
-        dynamic_mappings: {
+        dynamicMappings: {
             files: [{
                 expand: true,
                 cwd: './',
@@ -127,10 +127,10 @@ In _C_, _Java_, _JavaScript_ type of files place the code depending on environme
 ```js
 
 // Options to switch environment (dev/prod)
-var env_option = {
-    env_dev: 'env:dev',
-    env_prod: 'env:prod',
-    blocking_char: '#'
+var envOption = {
+    envDev: 'env:dev',
+    envProd: 'env:prod',
+    blockingChar: '#'
 };
 
 /**
@@ -143,10 +143,10 @@ gulp.task('dev', function() {
     var files = ['./app/index.html'];
     files.forEach(function(file) {
         var content = fs.readFileSync(file, "utf8")
-            .replace('<!-- ' + env_option.env_dev + ' --' + env_option.blocking_char + '>', '<!-- ' + env_option.env_dev + ' -->')
-            .replace('<!-- ' + env_option.env_prod + ' -->', '<!-- ' + env_option.env_prod + ' --' + env_option.blocking_char + '>')
-            .replace('/* ' + env_option.env_dev + ' *' + env_option.blocking_char + '/', '/* ' + env_option.env_dev + ' */')
-            .replace('/* ' + env_option.env_prod + ' */', '/* ' + env_option.env_prod + ' *' + env_option.blocking_char + '/');
+            .replace('<!-- ' + envOption.envDev + ' --' + envOption.blockingChar + '>', '<!-- ' + envOption.envDev + ' -->')
+            .replace('<!-- ' + envOption.envProd + ' -->', '<!-- ' + envOption.envProd + ' --' + envOption.blockingChar + '>')
+            .replace('/* ' + envOption.envDev + ' *' + envOption.blockingChar + '/', '/* ' + envOption.envDev + ' */')
+            .replace('/* ' + envOption.envProd + ' */', '/* ' + envOption.envProd + ' *' + envOption.blockingChar + '/');
         fs.writeFileSync(file, content);
     });
 });
@@ -161,10 +161,10 @@ gulp.task('prod', [], function() {
     var files = ['./app/index.html'];
     files.forEach(function(file) {
         var content = fs.readFileSync(file, "utf8")
-            .replace('<!-- ' + env_option.env_prod + ' --' + env_option.blocking_char + '>', '<!-- ' + env_option.env_prod + ' -->')
-            .replace('<!-- ' + env_option.env_dev + ' -->', '<!-- ' + env_option.env_dev + ' --' + env_option.blocking_char + '>')
-            .replace('/* ' + env_option.env_prod + ' *' + env_option.blocking_char + '/', '/* ' + env_option.env_prod + ' */')
-            .replace('/* ' + env_option.env_dev + ' */', '/* ' + env_option.env_dev + ' *' + env_option.blocking_char + '/');
+            .replace('<!-- ' + envOption.envProd + ' --' + envOption.blockingChar + '>', '<!-- ' + envOption.envProd + ' -->')
+            .replace('<!-- ' + envOption.envDev + ' -->', '<!-- ' + envOption.envDev + ' --' + envOption.blockingChar + '>')
+            .replace('/* ' + envOption.envProd + ' *' + envOption.blockingChar + '/', '/* ' + envOption.envProd + ' */')
+            .replace('/* ' + envOption.envDev + ' */', '/* ' + envOption.envDev + ' *' + envOption.blockingChar + '/');
         fs.writeFileSync(file, content);
     });
 });
@@ -178,20 +178,14 @@ Default value: NONE
 
 A string value that is used to do define the environment.
 
-#### options.env_char _(optional)_
-Type: `String`
-Default value: '#'
-
-Default character to block the comment.
-
-#### options.env_block_dev _(optional)_
+#### options.envBlockDev _(optional)_
 Type: `String`
 Default value: 'env:dev'
 
 Override the default string of the comment. 
 So the task will be searching for `<!-- env:dev -->` comment blocks
 
-#### options.env_block_prod _(optional)_
+#### options.envBlockProd _(optional)_
 Type: `String`
 Default value: 'env:prod'
 
@@ -200,6 +194,12 @@ So the task will be searching for `<!-- env:prod -->` comment blocks
 
 
 ## Release History
+#### 0.1.5
+* Working version
+* Update: jshint camel case configuration
+* Fix: Correct testing cases
+* Fix: Removing envChar
+
 #### 0.1.4
 * Fix: Oops, used reserved word.
 
